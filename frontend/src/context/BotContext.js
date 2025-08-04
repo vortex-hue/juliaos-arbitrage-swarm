@@ -69,7 +69,7 @@ export const BotProvider = ({ children }) => {
 
   useEffect(() => {
     // Initialize WebSocket connection
-    const socket = io('http://localhost:3001');
+    const socket = io('https://api.xendex.com.ng/');
     
     socket.on('connect', () => {
       console.log('Connected to bot server');
@@ -109,8 +109,8 @@ export const BotProvider = ({ children }) => {
   const loadInitialData = async () => {
     try {
       const [configRes, statusRes] = await Promise.all([
-        axios.get('/api/config'),
-        axios.get('/api/status')
+        axios.get('https://api.xendex.com.ng/api/config'),
+        axios.get('https://api.xendex.com.ng/api/status')
       ]);
 
       dispatch({ type: 'UPDATE_CONFIGURATION', payload: configRes.data });
@@ -123,7 +123,7 @@ export const BotProvider = ({ children }) => {
 
   const startBot = async () => {
     try {
-      const response = await axios.post('/api/bot/start');
+      const response = await axios.post('https://api.xendex.com.ng/api/bot/start');
       dispatch({ type: 'SET_RUNNING', payload: true });
       return response.data;
     } catch (error) {
@@ -133,7 +133,7 @@ export const BotProvider = ({ children }) => {
 
   const stopBot = async () => {
     try {
-      const response = await axios.post('/api/bot/stop');
+      const response = await axios.post('https://api.xendex.com.ng/api/bot/stop');
       dispatch({ type: 'SET_RUNNING', payload: false });
       return response.data;
     } catch (error) {
@@ -143,7 +143,7 @@ export const BotProvider = ({ children }) => {
 
   const updateConfiguration = async (config) => {
     try {
-      const response = await axios.put('/api/config', config);
+      const response = await axios.put('https://api.xendex.com.ng/api/config', config);
       dispatch({ type: 'UPDATE_CONFIGURATION', payload: response.data });
       return response.data;
     } catch (error) {
