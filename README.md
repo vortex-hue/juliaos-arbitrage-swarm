@@ -1,4 +1,4 @@
-# 🚀 Cross-Chain Arbitrage Swarm Bot
+# 🚀 JuliaOS Arbitrage Swarm Bot
 
 A sophisticated decentralized application powered by JuliaOS that demonstrates advanced AI agent capabilities, swarm orchestration, and multi-chain deployment for automated arbitrage opportunities.
 
@@ -27,6 +27,12 @@ This dApp leverages JuliaOS's modular framework to create an intelligent swarm o
 - **Real-Time Monitoring**: Live price feeds and transaction tracking
 - **Smart Contract Interaction**: Direct blockchain communication
 
+### 🌐 Web Interface
+- **Real-Time Dashboard**: Live performance metrics and charts
+- **Interactive Monitoring**: Real-time bot status and control
+- **Configuration Management**: Web-based settings interface
+- **Professional UI**: Modern, responsive design with dark theme
+
 ## 🏗️ Architecture
 
 ```
@@ -45,137 +51,211 @@ This dApp leverages JuliaOS's modular framework to create an intelligent swarm o
 ## 🚀 Quick Start
 
 ### Prerequisites
-- JuliaOS framework installed
-- Node.js 18+ and npm
-- Python 3.8+ with required packages
-- Solana CLI tools
-- MetaMask or compatible wallet
 
-### Installation
+- **Node.js 18+** and npm
+- **Python 3.8+** with pip
+- **Julia 1.8+** (for local development)
+- **Git** for cloning the repository
 
-1. **Clone the repository**
+### Local Development Setup
+
+#### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/cross-chain-arbitrage-swarm
-cd cross-chain-arbitrage-swarm
+git clone https://github.com/vortex-hue/juliaos-arbitrage-swarm.git
+cd juliaos-arbitrage-swarm
 ```
 
-2. **Install dependencies**
-```bash
-# Install Node.js dependencies
-npm install
+#### 2. Install Dependencies
 
-# Install Python dependencies
+**Node.js Dependencies:**
+```bash
+# Install backend dependencies
+cd server && npm install
+
+# Install frontend dependencies
+cd ../frontend && npm install
+```
+
+**Python Dependencies:**
+```bash
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install Python packages
 pip install -r requirements.txt
-
-# Install JuliaOS CLI
-julia -e 'using Pkg; Pkg.add("JuliaOS")'
 ```
 
-3. **Configure environment**
+**Julia Dependencies:**
 ```bash
-cp .env.example .env
-# Edit .env with your API keys and wallet configuration
+# Install Julia dependencies
+julia -e 'using Pkg; Pkg.activate("."); Pkg.instantiate()'
 ```
 
-4. **Initialize JuliaOS agents**
-```bash
-# Start the agent swarm
-npm run start:agents
+#### 3. Start the Application
 
-# Or use JuliaOS CLI
-juliaos agent start --swarm arbitrage-swarm
+**Option A: Using the Startup Script (Recommended)**
+```bash
+# Make script executable
+chmod +x start.sh
+
+# Start both frontend and backend
+./start.sh
 ```
 
-5. **Launch the UI**
+**Option B: Manual Start**
 ```bash
-npm run dev
+# Terminal 1 - Start Backend Server
+cd server && npm start
+
+# Terminal 2 - Start Frontend
+cd frontend && npm start
+```
+
+#### 4. Access the Application
+
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:3001
+- **CLI Interface**: `node cli/index.js help`
+
+### Production Deployment
+
+#### Ubuntu Server Deployment
+
+**1. Server Setup:**
+```bash
+# Connect to your Ubuntu server
+ssh root@your-server-ip
+
+# Run the setup script
+wget https://raw.githubusercontent.com/vortex-hue/juliaos-arbitrage-swarm/main/deployment/ubuntu-setup.sh
+chmod +x ubuntu-setup.sh
+./ubuntu-setup.sh
+```
+
+**2. Deploy Application:**
+```bash
+# Run the deployment script
+wget https://raw.githubusercontent.com/vortex-hue/juliaos-arbitrage-swarm/main/deployment/deploy.sh
+chmod +x deploy.sh
+./deploy.sh
+```
+
+**3. Configure DNS:**
+Add these DNS records pointing to your server IP:
+```
+juliaos.xendex.com.ng  A  your-server-ip
+api.xendex.com.ng      A  your-server-ip
+```
+
+**4. Setup SSL Certificates:**
+```bash
+sudo certbot --nginx -d juliaos.xendex.com.ng -d api.xendex.com.ng --non-interactive --agree-tos --email your-email@example.com
+```
+
+#### Vercel Deployment
+
+**1. Deploy Frontend:**
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy frontend
+cd frontend && vercel --prod
+```
+
+**2. Deploy Backend API:**
+```bash
+# Deploy API functions
+cd api && vercel --prod
 ```
 
 ## 🧪 Usage Examples
 
-### Basic Arbitrage Detection
-```javascript
-// Initialize arbitrage agent
-const arbitrageAgent = new ArbitrageAgent({
-  exchanges: ['uniswap', 'sushiswap', 'pancakeswap'],
-  chains: ['ethereum', 'bsc', 'polygon'],
-  minProfitThreshold: 0.5 // 0.5% minimum profit
-});
+### CLI Interface
 
-// Start monitoring
-await arbitrageAgent.startMonitoring();
+```bash
+# Start the bot
+node cli/index.js start
+
+# Check bot status
+node cli/index.js status
+
+# Monitor bot activity
+node cli/index.js monitor
+
+# Stop the bot
+node cli/index.js stop
 ```
 
-### Swarm Coordination
-```javascript
-// Create agent swarm
-const swarm = new AgentSwarm({
-  agents: [
-    new MarketAnalysisAgent(),
-    new ArbitrageDetectionAgent(),
-    new RiskAssessmentAgent(),
-    new ExecutionAgent()
-  ],
-  coordinationStrategy: 'consensus'
-});
+### Web Interface
 
-// Execute coordinated arbitrage
-await swarm.executeArbitrage(opportunity);
-```
+1. **Open**: http://localhost:3000 (local) or https://juliaos.xendex.com.ng (production)
+2. **Dashboard**: View real-time performance metrics
+3. **Monitoring**: Watch live bot activity and opportunities
+4. **Configuration**: Adjust bot settings through the web interface
+5. **Control**: Start/stop the bot with one click
 
-### Cross-Chain Bridge Integration
-```javascript
-// Bridge assets between chains
-const bridge = new CrossChainBridge({
-  sourceChain: 'ethereum',
-  targetChain: 'bsc',
-  bridgeProvider: 'multichain'
-});
+### API Endpoints
 
-await bridge.transfer({
-  token: 'USDC',
-  amount: '1000',
-  recipient: targetWallet
-});
+```bash
+# Get bot status
+curl http://localhost:3001/api/status
+
+# Get configuration
+curl http://localhost:3001/api/config
+
+# Start bot
+curl -X POST http://localhost:3001/api/bot/start
+
+# Stop bot
+curl -X POST http://localhost:3001/api/bot/stop
 ```
 
 ## 🔧 Configuration
 
-### Agent Configuration
-```yaml
-# config/agents.yaml
-arbitrage_agent:
-  enabled: true
-  monitoring_interval: 30s
-  min_profit_threshold: 0.5%
-  max_slippage: 1%
-  
-risk_assessment:
-  enabled: true
-  max_position_size: 10%
-  stop_loss_threshold: 5%
-  
-execution_agent:
-  enabled: true
-  gas_optimization: true
-  max_retries: 3
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+# Bot Configuration
+NODE_ENV=development
+PORT=3001
+
+# API Keys (for production)
+INFURA_API_KEY=your_infura_key
+ALCHEMY_API_KEY=your_alchemy_key
+ETHERSCAN_API_KEY=your_etherscan_key
+
+# Database (optional)
+DATABASE_URL=your_database_url
 ```
 
-### Network Configuration
-```yaml
-# config/networks.yaml
-networks:
-  ethereum:
-    rpc_url: "https://mainnet.infura.io/v3/YOUR_KEY"
-    chain_id: 1
-    
-  bsc:
-    rpc_url: "https://bsc-dataseed.binance.org"
-    chain_id: 56
-    
-  polygon:
-    rpc_url: "https://polygon-rpc.com"
-    chain_id: 137
+### Bot Configuration
+
+The bot uses a JSON configuration file (`config.json`):
+
+```json
+{
+  "arbitrage_agent": {
+    "exchanges": ["uniswap", "sushiswap", "pancakeswap"],
+    "chains": ["ethereum", "bsc", "polygon"],
+    "min_profit_threshold": 0.5,
+    "max_risk_score": 70.0,
+    "monitoring_interval": 30
+  },
+  "agent_swarm": {
+    "max_agents": 10,
+    "coordination_strategy": "consensus",
+    "consensus_threshold": 0.7
+  },
+  "cross_chain_bridge": {
+    "gas_optimization": true,
+    "slippage_tolerance": 1.0,
+    "max_retries": 3
+  }
+}
 ```
 
 ## 📊 Performance Metrics
@@ -200,34 +280,17 @@ npm run test:bridges
 npm run test:integration
 ```
 
-### Performance Testing
+### Manual Testing
 ```bash
-# Benchmark agent performance
-npm run test:benchmark
+# Test Julia components
+julia test_simple.jl
 
-# Load testing
-npm run test:load
+# Test backend API
+curl http://localhost:3001/api/status
+
+# Test frontend
+npm run build
 ```
-
-## 📈 Advanced Features
-
-### AI-Powered Analysis
-- **Sentiment Analysis**: Market sentiment integration
-- **Pattern Recognition**: Historical data analysis
-- **Risk Modeling**: Advanced risk assessment algorithms
-- **Portfolio Optimization**: ML-driven asset allocation
-
-### Swarm Intelligence
-- **Consensus Mechanisms**: Multi-agent decision validation
-- **Dynamic Scaling**: Automatic agent scaling
-- **Fault Tolerance**: Automatic recovery and failover
-- **Load Balancing**: Distributed workload management
-
-### Cross-Chain Capabilities
-- **Bridge Aggregation**: Multiple bridge providers
-- **Gas Optimization**: Smart gas management
-- **MEV Protection**: Front-running protection
-- **Slippage Control**: Advanced slippage management
 
 ## 🔒 Security Features
 
@@ -239,50 +302,44 @@ npm run test:load
 
 ## 📚 API Documentation
 
-### Agent APIs
-```javascript
-// Market Analysis Agent
-const marketAgent = new MarketAnalysisAgent();
-await marketAgent.analyzeMarket(symbol);
+### Core Endpoints
 
-// Arbitrage Detection Agent
-const arbitrageAgent = new ArbitrageDetectionAgent();
-const opportunities = await arbitrageAgent.detectOpportunities();
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/status` | GET | Get bot status and performance |
+| `/api/config` | GET | Get current configuration |
+| `/api/config` | PUT | Update configuration |
+| `/api/bot/start` | POST | Start the bot |
+| `/api/bot/stop` | POST | Stop the bot |
+| `/api/agents` | GET | Get agent information |
+| `/api/opportunities` | GET | Get recent opportunities |
+| `/api/logs` | GET | Get system logs |
 
-// Risk Assessment Agent
-const riskAgent = new RiskAssessmentAgent();
-const riskScore = await riskAgent.assessRisk(opportunity);
-```
+### WebSocket Events
 
-### Swarm APIs
-```javascript
-// Swarm Management
-const swarm = new AgentSwarm();
-await swarm.addAgent(agent);
-await swarm.removeAgent(agentId);
-await swarm.getSwarmStatus();
-
-// Coordination
-await swarm.coordinate(agents, strategy);
-await swarm.consensus(proposal);
-```
-
-### Bridge APIs
-```javascript
-// Cross-Chain Operations
-const bridge = new CrossChainBridge();
-await bridge.getSupportedChains();
-await bridge.getBridgeFee(sourceChain, targetChain);
-await bridge.transfer(params);
-```
+| Event | Description |
+|-------|-------------|
+| `bot_status` | Bot status updates |
+| `opportunity_detected` | New arbitrage opportunity |
+| `log_entry` | New log entry |
+| `real_time_update` | Real-time performance data |
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. **Fork the repository**
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+3. **Make your changes** and add tests
+4. **Commit your changes**: `git commit -m 'Add amazing feature'`
+5. **Push to the branch**: `git push origin feature/amazing-feature`
+6. **Open a Pull Request**
+
+### Development Guidelines
+
+- Follow Julia style guidelines for Julia code
+- Use ESLint and Prettier for JavaScript/TypeScript
+- Add comprehensive tests for new features
+- Update documentation for API changes
+- Follow the existing code structure
 
 ## 📄 License
 
@@ -296,10 +353,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Discord**: Join our [Discord server](https://discord.gg/juliaos)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/vortex-hue/juliaos-arbitrage-swarm/issues)
+- **Discussions**: [Join the conversation](https://github.com/vortex-hue/juliaos-arbitrage-swarm/discussions)
 - **Documentation**: [JuliaOS Docs](https://docs.juliaos.com)
-- **Issues**: [GitHub Issues](https://github.com/your-username/cross-chain-arbitrage-swarm/issues)
+
+## 🌐 Live Demo
+
+- **Production**: https://juliaos.xendex.com.ng
+- **API**: https://api.xendex.com.ng
+- **Repository**: https://github.com/vortex-hue/juliaos-arbitrage-swarm
 
 ---
 
-**Built with ❤️ using JuliaOS Framework** 
+**Built with ❤️ using JuliaOS Framework**
+
+*This project demonstrates advanced AI agent capabilities, swarm orchestration, and multi-chain deployment for automated arbitrage opportunities.* 
