@@ -5,7 +5,7 @@ import {
   CurrencyDollarIcon,
   ChartBarIcon,
   ClockIcon,
-  TrendingUpIcon,
+  ArrowTrendingUpIcon,
   CubeIcon,
   UserGroupIcon
 } from '@heroicons/react/24/outline';
@@ -32,7 +32,7 @@ const Dashboard = () => {
     {
       title: 'Opportunities',
       value: performance.totalOpportunities.toLocaleString(),
-      icon: TrendingUpIcon,
+      icon: ArrowTrendingUpIcon,
       color: 'text-purple-400',
       bgColor: 'bg-purple-500/10'
     },
