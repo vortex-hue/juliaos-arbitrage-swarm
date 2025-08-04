@@ -4,6 +4,14 @@ import axios from 'axios';
 
 const BotContext = createContext();
 
+// Determine API base URL based on environment
+const getApiBaseUrl = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://api.xendex.com.ng';
+  }
+  return 'http://localhost:3001';
+};
+
 const initialState = {
   botStatus: 'offline',
   isRunning: false,
@@ -68,11 +76,13 @@ export const BotProvider = ({ children }) => {
   const [state, dispatch] = useReducer(botReducer, initialState);
 
   useEffect(() => {
+    const apiBaseUrl = getApiBaseUrl();
+    
     // Initialize WebSocket connection
-    const socket = io('https://api.xendex.com.ng/');
+    const socket = io(apiBaseUrl);
     
     socket.on('connect', () => {
-      console.log('Connected to bot server');
+      console.log('Connected to bot server at:', apiBaseUrl);
       dispatch({ type: 'SET_BOT_STATUS', payload: 'connected' });
     });
 
@@ -108,9 +118,10 @@ export const BotProvider = ({ children }) => {
 
   const loadInitialData = async () => {
     try {
+      const apiBaseUrl = getApiBaseUrl();
       const [configRes, statusRes] = await Promise.all([
-        axios.get('https://api.xendex.com.ng/api/config'),
-        axios.get('https://api.xendex.com.ng/api/status')
+        axios.get(`${apiBaseUrl}/api/config`),
+        axios.get(`${apiBaseUrl}/api/status`)
       ]);
 
       dispatch({ type: 'UPDATE_CONFIGURATION', payload: configRes.data });
@@ -123,7 +134,8 @@ export const BotProvider = ({ children }) => {
 
   const startBot = async () => {
     try {
-      const response = await axios.post('https://api.xendex.com.ng/api/bot/start');
+      const apiBaseUrl = getApiBaseUrl();
+      const response = await axios.post(`${apiBaseUrl}/api/bot/start`);
       dispatch({ type: 'SET_RUNNING', payload: true });
       return response.data;
     } catch (error) {
@@ -133,7 +145,8 @@ export const BotProvider = ({ children }) => {
 
   const stopBot = async () => {
     try {
-      const response = await axios.post('https://api.xendex.com.ng/api/bot/stop');
+      const apiBaseUrl = getApiBaseUrl();
+      const response = await axios.post(`${apiBaseUrl}/api/bot/stop`);
       dispatch({ type: 'SET_RUNNING', payload: false });
       return response.data;
     } catch (error) {
@@ -143,7 +156,8 @@ export const BotProvider = ({ children }) => {
 
   const updateConfiguration = async (config) => {
     try {
-      const response = await axios.put('https://api.xendex.com.ng/api/config', config);
+      const apiBaseUrl = getApiBaseUrl();
+      const response = await axios.put(`${apiBaseUrl}/api/config`, config);
       dispatch({ type: 'UPDATE_CONFIGURATION', payload: response.data });
       return response.data;
     } catch (error) {
