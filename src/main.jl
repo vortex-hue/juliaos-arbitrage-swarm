@@ -1,3 +1,6 @@
+# Include mock JuliaOS framework for testing
+include("mock_juliaos.jl")
+
 using JuliaOS
 using JSON3
 using Dates
