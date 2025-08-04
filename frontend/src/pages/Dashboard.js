@@ -238,7 +238,7 @@ const Dashboard = () => {
         
         <div className="card p-4">
           <div className="flex items-center space-x-3">
-            <TrendingUpIcon className="w-6 h-6 text-green-400" />
+            <ArrowTrendingUpIcon className="w-6 h-6 text-green-400" />
             <div>
               <p className="text-sm text-gray-400">Current Load</p>
               <p className="text-white font-semibold">75%</p>
