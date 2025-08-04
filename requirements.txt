@@ -1,0 +1,73 @@
+# Core dependencies
+juliaos>=0.1.0
+numpy>=1.21.0
+pandas>=1.3.0
+requests>=2.25.0
+websockets>=10.0
+asyncio>=3.4.3
+
+# AI and ML dependencies
+openai>=0.27.0
+langchain>=0.0.200
+transformers>=4.20.0
+torch>=1.12.0
+scikit-learn>=1.1.0
+
+# Blockchain and Web3
+web3>=6.0.0
+eth-account>=0.8.0
+eth-utils>=2.0.0
+solana>=0.30.0
+anchorpy>=0.18.0
+
+# Data processing and analysis
+ccxt>=2.0.0
+yfinance>=0.1.70
+ta>=0.10.0
+plotly>=5.10.0
+matplotlib>=3.5.0
+seaborn>=0.11.0
+
+# API and HTTP
+fastapi>=0.95.0
+uvicorn>=0.20.0
+pydantic>=1.10.0
+httpx>=0.24.0
+
+# Database and storage
+sqlalchemy>=1.4.0
+redis>=4.3.0
+pymongo>=4.2.0
+
+# Configuration and environment
+python-dotenv>=0.19.0
+pyyaml>=6.0
+click>=8.1.0
+
+# Testing and development
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.0.0
+black>=22.0.0
+flake8>=5.0.0
+mypy>=1.0.0
+
+# Monitoring and logging
+prometheus-client>=0.15.0
+structlog>=22.3.0
+rich>=12.0.0
+
+# Security and cryptography
+cryptography>=3.4.0
+pyjwt>=2.6.0
+
+# Utilities
+python-dateutil>=2.8.0
+pytz>=2022.1
+tqdm>=4.64.0
+colorama>=0.4.5
+
+# Optional: Advanced features
+# tensorflow>=2.9.0  # Uncomment for advanced ML features
+# ray>=1.13.0        # Uncomment for distributed computing
+# dask>=2022.8.0     # Uncomment for big data processing 
